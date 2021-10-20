@@ -10,4 +10,8 @@ class BillingDetail extends Model
 {
     use HasFactory, SoftDeletes;
     protected $guarded = [];
+    public function amount()
+    {
+        return $this->hasOne(BillingAmount::class, 'billing_detail_id');
+    }
 }

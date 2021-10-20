@@ -32,7 +32,7 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>150</h3>
+                        <h3>{{ $neworder}}</h3>
 
                         <p>New Orders</p>
                     </div>
@@ -62,7 +62,7 @@
                 <!-- small box -->
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>{{ App\Models\User::all()->count() }}</h3>
+                        <h3>{{ $usercount }}</h3>
 
                         <p>User Registrations</p>
                     </div>
@@ -77,7 +77,7 @@
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>65</h3>
+                        <h3>{{ $uniqueuser }}</h3>
 
                         <p>Unique Visitors</p>
                     </div>

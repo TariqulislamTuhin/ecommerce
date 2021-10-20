@@ -13,6 +13,7 @@ class FrontendController extends Controller
 {
     public function index()
     {
+
         $categories = Category::with('products')->withCount('products')->limit(5)->get();
         $products = Product::orderBy('created_at')->get();
         return view('frontend.pages.index', compact('categories', 'products'));

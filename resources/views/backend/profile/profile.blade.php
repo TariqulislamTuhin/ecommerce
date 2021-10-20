@@ -61,7 +61,7 @@
                         <strong><i class="fas fa-mobile mr-1"></i> Mobile No.</strong>
 
                         <p class="text-muted">
-                            <a href="tel:0{{ $profile->mobile_no }}">0{{ $profile->mobile_no }}</a>
+                            <a href="tel:{{ $profile->mobile_no }}">{{ $profile->mobile_no }}</a>
 
                         </p>
 

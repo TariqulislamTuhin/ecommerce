@@ -6,6 +6,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ColorSizeController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomerAuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -69,10 +70,7 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 
 ###########################     Admin's BackEnd Routes     ###########################
 #           Dashboard
-Route::get('dashboard', function () {
-    return view('backend.dashboard');
-})->name('dashboard')->middleware(['auth', 'administrator']);
-
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('user/{user?}', [ProfileController::class, 'index'])->name('profile.index');
 Route::get('profile/create', [ProfileController::class, 'create'])->name('profile.create');

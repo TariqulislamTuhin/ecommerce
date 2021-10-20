@@ -39,7 +39,7 @@ class ProfileController extends Controller
         // return $request->all();
         $request->validate([
             "email" => "unique:users,email," . auth()->id(),
-            "mobile_no" => "unique:profiles,mobile_no," . auth()->user()->profile->id,
+            "mobile_no" => "max:11|unique:profiles,mobile_no," . auth()->user()->profile->id,
         ]);
         $user = User::findorfail(auth()->id());
         $user->update([
@@ -51,17 +51,14 @@ class ProfileController extends Controller
             'user_id' => $user->id,
             "mobile_no" => $request->mobile_no,
             "address" => $request->address,
-            "image" => 'default.png',
             "gender" => $request->gender,
         ]);
         $save_location = public_path('profile/') . $profile->id . '/';
 
         if ($request->hasFile('image')) {
-            if ($profile->image != 'default.png') {
-                $old_image = $save_location . $profile->image;
-                if (fileExists($old_image)) {
-                    unlink($old_image);
-                }
+            $old_image = $save_location . $profile->image;
+            if (!is_dir($old_image)) {
+                unlink($old_image);
             }
             $image = $request->file('image');
             $image_name = $profile->id . Str::random() . '.' . $image->getClientOriginalExtension();

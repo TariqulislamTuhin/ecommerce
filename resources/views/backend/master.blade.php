@@ -471,6 +471,7 @@
                         @else
                         @endcan
 
+
                         {{-- logout --}}
 
                         <form id="form-logout" action="{{route('logout')}}" method="POST">

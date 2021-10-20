@@ -78,12 +78,14 @@ class RegisteredUserController extends Controller
         // Permission::create(['name' => 'coupon delete']);
         // Permission::create(['name' => 'assign user']);
         // Permission::create(['name' => 'customer dashboard access']);
-        // $role = Role::create(['name' => 'Super Admin']);
-        // $role->$role->syncPermissions(Permission::all());
+
+        // $rolesuper = Role::create(['name' => 'Super Admin']);
+        // $rolesuper->syncPermissions(Permission::all());
         // $user->assignrole('Super Admin');
 
-        $user->assignrole('Customer');
-        // $user->assignrole('Super Admin');
+
+        #### Inactive this when creting Super Admin ###
+        // $user->assignrole('Customer');
 
         $profile = Profile::create([
             "user_id" => $user->id,
