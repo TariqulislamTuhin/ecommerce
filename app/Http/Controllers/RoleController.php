@@ -155,7 +155,7 @@ class RoleController extends Controller
 
         return view('backend.role.user_role', [
             "roles" => Role::all(),
-            "users" => User::all(),
+            "users" => User::where('registration_method', 'local')->get(),
             "userwithRole" => User::role(['Super Admin', 'Admin'])->get(),
         ]);
     }

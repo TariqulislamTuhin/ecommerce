@@ -19,12 +19,6 @@
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <div class="text-center">
-                                        <a href="{{ route('customer.GitHub.Redirect') }}"><img
-                                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png"
-                                                alt="" width="40"><br> Login with GitHub
-                                        </a>
-                                    </div>
                                     @if (session('duplicate_error'))
                                     <div class="alert alert-danger">{{ session('duplicate_error') }}</div>
                                     @endif

@@ -3,6 +3,7 @@
 use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\Variable;
+use Igaster\LaravelCities\Geo;
 use Illuminate\Support\Facades\Cookie;
 
 
@@ -23,4 +24,8 @@ function discounted($total, $discount)
 function coupon()
 {
     return Coupon::orderby('created_at', 'desc')->first();
+}
+function getGeoName($id)
+{
+    return Geo::findorFail($id)->name;
 }

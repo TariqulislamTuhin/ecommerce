@@ -66,13 +66,15 @@
                         <ul>
                             <li class="old-price not-cut">
                                 @php
-                                $offer = $product->varibales->sortBY('regular_price')->first();
+                                $price = $product->varibales->sortBY('regular_price')->first();
                                 @endphp
-                                @if ( $offer->offer_price != null && $offer->offer_price < $offer->regular_price)
-                                    <s>{{ $offer->regular_price }}
-                                        Tk.</s><br>
-                                    @endif
-                                    {{ $offer->offer_price }} Tk.
+                                @if ($price->offer_price == null )
+                                {{ $price->regular_price }}
+                                @else
+                                <small class="text-dark"
+                                    style="font-size: 15px"><s>{{ $price->regular_price }}</s></small> <br>
+                                {{ $price->offer_price }}
+                                @endif
 
                             </li>
                         </ul>
@@ -392,12 +394,24 @@
                                 </span>
                                 <span class="rating-num">( 5 Review )</span>
                             </span>
-                            <h5 class="title"><a href="single-product.html">Women's Elizabeth
+                            <h5 class="title"><a
+                                    href="{{ route('front.product.details',[$product->slug,$product]) }}">{{ $product->name }}
                                     Coat
                                 </a>
                             </h5>
                             <span class="price">
-                                <span class="new">$38.50</span>
+                                <span class="new">
+                                    @if ($product->varibales->sortby('regular_price')->first()->offer_price == null )
+                                    {{ $product->varibales->sortby('regular_price')->first()->regular_price }}
+                                    @else
+                                    <s class="text-danger" style="font-size: 13px">
+                                        {{ $product->varibales->sortby('regular_price')->first()->regular_price}}
+                                    </s>
+                                    <br>
+                                    {{ $product->varibales->sortby('regular_price')->first()->offer_price }}
+                                    @endif
+                                </span>
+
                             </span>
                         </div>
                     </div>

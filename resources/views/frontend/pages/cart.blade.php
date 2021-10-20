@@ -159,21 +159,25 @@
                             <div class="title-wrap">
                                 <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
                             </div>
-                            <h5>Total products <span>{{ $total }}</span> </h5>
+                            <h5>Sub-Total <span>{{ $total }}</span> </h5>
                             <h5>Discount @if($coupon_name) ( {{ $coupon_name }} ) @endif
                                 <span>{{ $discount }} %</span>
                             </h5>
-                            <h5>Shipping <span id="shipping_cost"> Free </span>
+                            <h5>Discounted Amount <span>{{ round(discounted($total ,$discount)) }}</span> </h5>
+                            <h5>Shipping <span id="shipping_cost"> {{ session('shipping') }} </span>
                             </h5>
 
                             <h4 class="grand-totall-title">Grand Total
-                                <span id="grand_total">{{ $total = round(discounted($total ,$discount))  }}</span>
+                                <span
+                                    id="grand_total">{{ round(discounted($total ,$discount) + session('shipping'))  }}</span>
                             </h4>
                             @php
+                            session()->put('subtotal',$total);
                             session()->put('coupon_name', $coupon_name);
                             session()->put('discount',$discount);
-                            session()->put('total',round($total));
+                            session()->put('grand_total',round(discounted($total ,$discount)));
                             @endphp
+
 
                             <a id="proceed" href="{{ route('checkout.index') }}">Proceed to Checkout</a>
 
@@ -199,8 +203,8 @@
             window.location.href = address;
         });
 
-
          $("#city_dropdown").change(function(){
+            var grand_total = parseInt($("#grand_total").text());
                 var city_id = $('#city_dropdown').val();
                 $.ajaxSetup({
                     headers: {
@@ -222,6 +226,7 @@
                     }
                 });
                 $("#district_dropdown").change(function(){
+
                     var district_id = $("#district_dropdown").val();
                     $.ajaxSetup({
                         headers: {
@@ -244,19 +249,18 @@
 
 
                     });
-                        var grand_total = parseInt($("#grand_total").text());
+
                         if (grand_total) {
                             if($('#district_dropdown :selected').text() == 'Dhaka'){
                                 $('#shipping_cost').html(50);
-                                $("#grand_total").text(grand_total+50);
+                                $("#grand_total").text({{ session("grand_total") }}+50);
                             }
                             else{
+
                                 $('#shipping_cost').html(120);
-                                $("#grand_total").text(grand_total+120);
+                                $("#grand_total").text({{ session("grand_total") }}+120);
                             }
                         }
-
-
                 });
         });
 

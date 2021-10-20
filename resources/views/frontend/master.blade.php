@@ -278,7 +278,6 @@
             <div class="foot">
                 <div class="buttons mt-30px">
                     <a href="{{ route('cart.index') }}" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
-                    <a href="checkout.html" class="btn btn-outline-dark current-btn">checkout</a>
                 </div>
             </div>
         </div>
@@ -587,6 +586,12 @@
                                     </div>
                                 </div>
                                 <button type="submit">Log in</button>
+                                <div class="text-center">
+                                    <a class="bg-white" href="{{ route('customer.GitHub.Redirect') }}"><img
+                                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png"
+                                            alt="" width="40"><br> Login with GitHub
+                                    </a>
+                                </div>
                                 <div class="member-register">
                                     <p> Not a member? <a href="{{ route('customer.auth.index') }}"> Register now</a></p>
                                 </div>

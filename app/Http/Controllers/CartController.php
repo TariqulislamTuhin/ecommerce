@@ -139,7 +139,6 @@ class CartController extends Controller
     }
     public function getTownList(Request $request)
     {
-        session()->forget('shipping');
         if (Geo::findorfail($request->district_id)->name == 'Dhaka') {
             session()->put('shipping', 50);
         } else {
