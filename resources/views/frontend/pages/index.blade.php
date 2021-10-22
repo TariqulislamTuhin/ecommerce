@@ -12,8 +12,11 @@
                     <div class="row">
                         <div class="col-xl-6 col-lg-5 col-md-5 col-sm-5 align-self-center sm-center-view">
                             <div class="hero-slide-content hero-slide-content-2 slider-animated-1">
-                                <span class="category">Sale 45% Off</span>
-                                <h2 class="title-1">Exclusive New<br> Offer 2021</h2>
+                                <span class="category">Sale {{ $coupon->amount ?? '' }}% Off</span>
+                                <h2 class="title-1">Exclusive
+                                    {{ preg_replace('/[\d-]+/', '', $coupon->name) ?? 'Shopping' }}<br>
+                                    Offer {{ now()->format('Y') }}
+                                </h2>
                                 <a href="shop-left-sidebar.html" class="btn btn-lg btn-primary btn-hover-dark"> Shop
                                     Now <i class="fa fa-shopping-basket ml-15px" aria-hidden="true"></i></a>
                             </div>
@@ -35,8 +38,11 @@
                     <div class="row">
                         <div class="col-xl-6 col-lg-5 col-md-5 col-sm-5 align-self-center sm-center-view">
                             <div class="hero-slide-content hero-slide-content-2 slider-animated-1">
-                                <span class="category">Sale 45% Off</span>
-                                <h2 class="title-1">Exclusive New<br> Offer 2021</h2>
+                                <span class="category">Sale {{ $coupon->amount ?? '' }}% Off</span>
+                                <h2 class="title-1">Exclusive
+                                    {{ preg_replace('/[\d-]+/', '', $coupon->name) ?? "Shopping" }}<br>
+                                    Offer {{ now()->format('Y') }}
+                                </h2>
                                 <a href="shop-left-sidebar.html" class="btn btn-lg btn-primary btn-hover-dark"> Shop
                                     Now <i class="fa fa-shopping-basket ml-15px" aria-hidden="true"></i></a>
                             </div>
@@ -274,7 +280,7 @@
     <div class="row m-0">
         <div class="col-12 col-lg-4 mb-md-30px mb-lm-30px">
             <div class="single-banner-2">
-                <img src="assets/images/banner/4.jpg" alt="">
+                <img src="front/images/banner/4.jpg" alt="">
                 <div class="item-disc">
                     <h4 class="title">Best Collection <br>
                         For Women</h4>
@@ -285,7 +291,7 @@
         </div>
         <div class="col-12 col-lg-4 center-col mb-md-30px mb-lm-30px">
             <div class="single-banner-2">
-                <img src="assets/images/banner/5.jpg" alt="">
+                <img src="front/images/banner/5.jpg" alt="">
                 <div class="item-disc">
                     <h4 class="title">Best Collection <br>
                         For Men</h4>
@@ -296,7 +302,7 @@
         </div>
         <div class="col-12 col-lg-4">
             <div class="single-banner-2">
-                <img src="assets/images/banner/6.jpg" alt="">
+                <img src="front/images/banner/6.jpg" alt="">
                 <div class="item-disc">
                     <h4 class="title">New Collection <br>
                         For Kids</h4>
@@ -351,7 +357,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/8.jpg" alt="Product" />
+                                                <img src="front/images/product-image/8.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="new">New</span>
@@ -390,7 +396,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/9.jpg" alt="Product" />
+                                                <img src="front/images/product-image/9.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="sale">-10%</span>
@@ -431,7 +437,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/10.jpg" alt="Product" />
+                                                <img src="front/images/product-image/10.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="sale">-7%</span>
@@ -470,7 +476,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/11.jpg" alt="Product" />
+                                                <img src="front/images/product-image/11.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="new">Sale</span>
@@ -509,7 +515,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/3.jpg" alt="Product" />
+                                                <img src="front/images/product-image/3.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="sale">-10%</span>
@@ -550,7 +556,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/1.jpg" alt="Product" />
+                                                <img src="front/images/product-image/1.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="new">New</span>
@@ -603,7 +609,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/8.jpg" alt="Product" />
+                                                <img src="front/images/product-image/8.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="new">New</span>
@@ -642,7 +648,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/9.jpg" alt="Product" />
+                                                <img src="front/images/product-image/9.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="sale">-10%</span>
@@ -683,7 +689,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/10.jpg" alt="Product" />
+                                                <img src="front/images/product-image/10.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="sale">-7%</span>
@@ -722,7 +728,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/11.jpg" alt="Product" />
+                                                <img src="front/images/product-image/11.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="new">Sale</span>
@@ -761,7 +767,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/3.jpg" alt="Product" />
+                                                <img src="front/images/product-image/3.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="sale">-10%</span>
@@ -802,7 +808,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/1.jpg" alt="Product" />
+                                                <img src="front/images/product-image/1.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="new">New</span>
@@ -855,7 +861,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/8.jpg" alt="Product" />
+                                                <img src="front/images/product-image/8.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="new">New</span>
@@ -894,7 +900,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/9.jpg" alt="Product" />
+                                                <img src="front/images/product-image/9.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="sale">-10%</span>
@@ -935,7 +941,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/10.jpg" alt="Product" />
+                                                <img src="front/images/product-image/10.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="sale">-7%</span>
@@ -974,7 +980,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/11.jpg" alt="Product" />
+                                                <img src="front/images/product-image/11.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="new">Sale</span>
@@ -1013,7 +1019,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/3.jpg" alt="Product" />
+                                                <img src="front/images/product-image/3.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="sale">-10%</span>
@@ -1054,7 +1060,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/1.jpg" alt="Product" />
+                                                <img src="front/images/product-image/1.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="new">New</span>
@@ -1107,7 +1113,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/8.jpg" alt="Product" />
+                                                <img src="front/images/product-image/8.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="new">New</span>
@@ -1146,7 +1152,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/9.jpg" alt="Product" />
+                                                <img src="front/images/product-image/9.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="sale">-10%</span>
@@ -1187,7 +1193,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/10.jpg" alt="Product" />
+                                                <img src="front/images/product-image/10.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="sale">-7%</span>
@@ -1226,7 +1232,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/11.jpg" alt="Product" />
+                                                <img src="front/images/product-image/11.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="new">Sale</span>
@@ -1265,7 +1271,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/3.jpg" alt="Product" />
+                                                <img src="front/images/product-image/3.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="sale">-10%</span>
@@ -1306,7 +1312,7 @@
                                     <div class="product">
                                         <div class="thumb">
                                             <a href="single-product.html" class="image">
-                                                <img src="assets/images/product-image/1.jpg" alt="Product" />
+                                                <img src="front/images/product-image/1.jpg" alt="Product" />
                                             </a>
                                             <span class="badges">
                                                 <span class="new">New</span>
@@ -1358,7 +1364,7 @@
 <!-- Product Area End -->
 
 <!-- Deal Area Start -->
-<div class="deal-area deal-bg deal-bg-2" data-bg-image="assets/images/deal-img/deal-bg-2.jpg">
+<div class="deal-area deal-bg deal-bg-2" data-bg-image="front/images/deal-img/deal-bg-2.jpg">
     <div class="container ">
         <div class="row">
             <div class="col-12">
@@ -1373,7 +1379,7 @@
                             Now <i class="fa fa-shopping-basket ml-15px" aria-hidden="true"></i></a>
                     </div>
                     <div class="deal-image">
-                        <img class="img-fluid" src="assets/images/deal-img/woman.png" alt="">
+                        <img class="img-fluid" src="front/images/deal-img/woman.png" alt="">
                     </div>
                 </div>
             </div>
@@ -1400,7 +1406,7 @@
             <div class="col-lg-4 mb-md-30px mb-lm-30px">
                 <div class="single-blog">
                     <div class="blog-image">
-                        <a href="blog-single-left-sidebar.html"><img src="assets/images/blog-image/1.jpg"
+                        <a href="blog-single-left-sidebar.html"><img src="front/images/blog-image/1.jpg"
                                 class="img-responsive w-100" alt=""></a>
                     </div>
                     <div class="blog-text">
@@ -1423,7 +1429,7 @@
             <div class="col-lg-4 mb-md-30px mb-lm-30px">
                 <div class="single-blog ">
                     <div class="blog-image">
-                        <a href="blog-single-left-sidebar.html"><img src="assets/images/blog-image/2.jpg"
+                        <a href="blog-single-left-sidebar.html"><img src="front/images/blog-image/2.jpg"
                                 class="img-responsive w-100" alt=""></a>
                     </div>
                     <div class="blog-text">
@@ -1446,7 +1452,7 @@
             <div class="col-lg-4">
                 <div class="single-blog">
                     <div class="blog-image">
-                        <a href="blog-single-left-sidebar.html"><img src="assets/images/blog-image/3.jpg"
+                        <a href="blog-single-left-sidebar.html"><img src="front/images/blog-image/3.jpg"
                                 class="img-responsive w-100" alt=""></a>
                     </div>
                     <div class="blog-text">

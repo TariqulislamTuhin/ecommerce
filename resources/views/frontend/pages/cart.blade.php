@@ -181,11 +181,11 @@
 
                             <a id="proceed" href="{{ route('checkout.index') }}">Proceed to Checkout</a>
 
-                            @endif
 
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>

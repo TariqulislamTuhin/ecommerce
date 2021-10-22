@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\Profile;
 use App\Models\Variable;
@@ -16,7 +17,8 @@ class FrontendController extends Controller
 
         $categories = Category::with('products')->withCount('products')->limit(5)->get();
         $products = Product::orderBy('created_at')->get();
-        return view('frontend.pages.index', compact('categories', 'products'));
+        $coupon = Coupon::where('validity', '>=', now()->format('Y-m-d'))->where('limit', '>', 0)->orderBy('created_at', 'desc')->first();
+        return view('frontend.pages.index', compact('categories', 'products', 'coupon'));
     }
 
     public function signleProduct($slug, Product $product)

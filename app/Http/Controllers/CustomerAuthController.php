@@ -34,14 +34,17 @@ class CustomerAuthController extends Controller
             "*" => "required"
         ]);
         $user = User::where('email', $request->email)->first();
-        if ($request->email == $user->email) {
+        if (!empty($user)) {
             if (Hash::check($request->password, $user->password)) {
                 Auth::login($user);
+                if ($user->role('Super Admin') || $user->role('Admin')) {
+                    return redirect()->route('dashboard');
+                }
                 return back();
             }
             return back()->with('login_error', 'email and password does not match!');
         }
-        return back()->with('login_error', 'email and password does not match!');
+        return redirect()->route('customer.auth.signin')->with('login_error', 'email and password does not match!');
     }
     public function registerCustomer(Request $request)
     {
@@ -87,17 +90,23 @@ class CustomerAuthController extends Controller
             return redirect()->route(('customer.auth.index'))->with('duplicate_error', 'Email already Exists!');
         } elseif ($viaUser->count() == 1) {
             $user = $viaUser->first();
+            if ($user->role('Super Admin') || $user->role('Admin')) {
+                Auth::login($user);
+                return redirect()->route('dashboard');
+            }
             Auth::login($user);
-            return redirect('/');
+            return back();
         } else {
             $password = Str::random();
             $newuser = User::create([
                 "name" => $user->getname(),
                 "email" => $user->getemail(),
                 "password" => Hash::make($password),
-                "registration_method" => "via",
             ]);
+            // return $newuser->registration_method;
             event(new Registered($newuser));
+            $newuser->registration_method = "via";
+            $newuser->save();
             $newuser->assignrole('Customer');
             // $newuser->assignrole('Super Admin');
 

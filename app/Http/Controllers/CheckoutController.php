@@ -5,18 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CheckoutRequest;
 use App\Models\BillingAmount;
 use App\Models\BillingDetail;
+use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\OrderedProduct;
 use App\Models\Profile;
 use App\Models\Variable;
 use Igaster\LaravelCities\Geo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class CheckoutController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('customer');
+        $this->middleware(['auth', 'customer']);
     }
 
     public function index()
@@ -40,7 +42,7 @@ class CheckoutController extends Controller
     public function store(CheckoutRequest $request)
     {
         //
-        return $request->all();
+        // return $request->all();
         $billing_detail = BillingDetail::create($request->except('_token', 'user_id') + [
             "user_id" => auth()->id(),
         ]);
@@ -56,7 +58,7 @@ class CheckoutController extends Controller
         if (session('coupon_name')) {
             Coupon::where('name', session('coupon_name'))->decrement("limit", 1);
         }
-        foreach (getcarts() as $cart) {
+        foreach (Cart::where("cookie_id", Cookie::get('cookie_id'))->get() as $cart) {
             OrderedProduct::create([
                 "billing_amount_id" => $billing_amount->id,
                 "product_id" => $cart->product_id,

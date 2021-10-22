@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cookie;
 
 function getcarts()
 {
-    return Cart::with(['product', 'color', 'size'])->where("cookie_id", Cookie::get('cookie_id'))->get();
+    return Cart::where("cookie_id", Cookie::get('cookie_id'))->get();
 }
 
 function price($p_id, $c_id, $s_id)

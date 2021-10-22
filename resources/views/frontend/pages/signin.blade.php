@@ -18,7 +18,14 @@
                     <div class="tab-content">
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
+                                <div class="text-center">
+                                    <a href="{{ route('customer.GitHub.Redirect') }}"><img
+                                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png"
+                                            alt="" width="40"><br> SignUp with GitHub
+                                    </a>
+                                </div>
                                 <div class="login-register-form">
+
                                     @if (session('duplicate_error'))
                                     <div class="alert alert-danger">{{ session('duplicate_error') }}</div>
                                     @endif
@@ -27,6 +34,9 @@
                                         <input type="text" hidden name="url" value="{{ $urlprevious }}" />
                                         <input type="email" name="email" placeholder="Email" />
                                         <input type="password" name="password" placeholder="Password" />
+                                        @if (session('login_error'))
+                                        <div class="alert alert-danger">{{ session('login_error') }}</div>
+                                        @endif
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
                                                 <input type="checkbox" />

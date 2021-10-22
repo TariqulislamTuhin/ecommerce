@@ -16,7 +16,7 @@ class ProfileController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'administrator']);
+        $this->middleware(['auth']);
     }
 
     public function index(User $user)
@@ -36,11 +36,10 @@ class ProfileController extends Controller
 
     public function store(Request $request)
     {
-        // return $request->all();
-        $request->validate([
-            "email" => "unique:users,email," . auth()->id(),
-            "mobile_no" => "max:11|unique:profiles,mobile_no," . auth()->user()->profile->id,
-        ]);
+        // $request->validate([
+        //     "email" => "unique:users,email," . auth()->id(),
+        //     "mobile_no" => "max:11|unique:profiles,mobile_no," . auth()->user()->profile->id,
+        // ]);
         $user = User::findorfail(auth()->id());
         $user->update([
             "name" => $request->name,
@@ -53,6 +52,7 @@ class ProfileController extends Controller
             "address" => $request->address,
             "gender" => $request->gender,
         ]);
+
         $save_location = public_path('profile/') . $profile->id . '/';
 
         if ($request->hasFile('image')) {

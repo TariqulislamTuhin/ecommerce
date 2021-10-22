@@ -6,6 +6,8 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ColorSizeController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomerAuthController;
+use App\Http\Controllers\CustomerDashboard;
+use App\Http\Controllers\CustomerDashboardController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProductController;
@@ -63,6 +65,12 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
+
+#           Customer Dashboard Route
+Route::get('myaccount', [CustomerDashboardController::class, 'index'])->name('customer.dashboard');
+Route::get('view/invoice', [CustomerDashboardController::class, 'viewInvoice'])->name('customer.viewInvoice');
+Route::get('view/{bill}/invoice', [CustomerDashboardController::class, 'viewInvoice'])->name('customer.viewInvoice');
+Route::get('download/{bill}/invoice', [CustomerDashboardController::class, 'downloadInvoice'])->name('customer.downloadInvoice');
 
 
 

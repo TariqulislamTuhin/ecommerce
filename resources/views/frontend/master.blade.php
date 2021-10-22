@@ -149,7 +149,7 @@
                                 <li class="dropdown ">
                                     <a href="#">{{ auth()->user()->name }} <i class="pe-7s-angle-down"></i></a>
                                     <ul class="sub-menu">
-                                        <li><a href="#">My Account</a></li>
+                                        <li><a href="{{ route('customer.dashboard') }}">My Account</a></li>
                                         <li><a href="#" class="dropdown-item dropdown-footer"
                                                 onclick="event.preventDefault();document.getElementById('form-logout').submit()">
                                                 <span class="btn btn-outline-danger">

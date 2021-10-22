@@ -184,13 +184,13 @@
                                             <div class="panel-heading my-account-title">
                                                 <h4 class="panel-title"><a data-bs-toggle="collapse"
                                                         href="#my-account-2" aria-expanded="false" class="collapsed">
-                                                        <b> SSLCommerz Payment</b></a></h4>
+                                                        <b> SSLCommerz Payment</b></a>
+                                                </h4>
                                             </div>
                                             <div id="my-account-2" class="panel-collapse collapse"
                                                 data-bs-parent="#faq">
-
                                             </div>
-                                            <div class="panel-body">
+                                            <div class="panel-body custom-radio">
                                                 <input id="sslcommerz" type="radio" value="sslcommerz"
                                                     name="payment_method" required>
                                             </div>

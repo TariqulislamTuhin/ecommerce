@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
 use App\Models\BillingAmount;
 use App\Models\BillingDetail;
+use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\OrderedProduct;
 use App\Models\Variable;
@@ -238,12 +239,12 @@ class SslCommerzPaymentController extends Controller
                 "coupon_name" => session('coupon_name'),
                 "shipping" => $request->value_d,
                 "grand_total" => round(session('grand_total') + session('shipping')),
-                "payment_status" => 1,
+                "payment_status" => 2,
             ]);
             if (session('coupon_name')) {
                 Coupon::where('name', session('coupon_name'))->decrement("limit", 1);
             }
-            foreach (getcarts() as $cart) {
+            foreach (Cart::where('cookie_id', $request->value_c)->get() as $cart) {
                 OrderedProduct::create([
                     "billing_amount_id" => $billing_amount->id,
                     "product_id" => $cart->product_id,
