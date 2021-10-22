@@ -49,7 +49,9 @@
 
     <!-- Top Bar -->
     @if(coupon()->validity >= now()->format('Y-m-d') && coupon()->limit > 0)
-    <div class="header-to-bar"> HELLO EVERYONE! {{ coupon()->amount }}% Off All Products </div>
+    <div class="header-to-bar"> HELLO {{ auth()->user()->name ?? "EVERYONE" }} ! {{ coupon()->amount }}% Off All
+        Products
+    </div>
     @endif
 
     <!-- Top Bar -->

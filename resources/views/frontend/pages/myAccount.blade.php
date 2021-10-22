@@ -69,7 +69,7 @@
                                                 </thead>
                                                 <tbody>
 
-                                                    @foreach ($bills as $bill)
+                                                    @forelse ($bills as $bill)
                                                     <tr>
                                                         <td>{{ $loop->index + 1 }}</td>
                                                         <td>{{ $bill->created_at->format('d F, Y') }}</td>
@@ -94,7 +94,11 @@
                                                                 class="view">Download</a>
                                                         </td>
                                                     </tr>
-                                                    @endforeach
+                                                    @empty
+                                                    <tr>
+                                                        <td colspan="10" class="text-center">No Data Avilable</td>
+                                                    </tr>
+                                                    @endforelse
 
                                                 </tbody>
                                             </table>
