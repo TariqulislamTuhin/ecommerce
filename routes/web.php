@@ -10,6 +10,7 @@ use App\Http\Controllers\CustomerDashboard;
 use App\Http\Controllers\CustomerDashboardController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -106,6 +107,10 @@ Route::get('/color', [ColorSizeController::class, 'colorIndex'])->name('color.in
 Route::post('/color', [ColorSizeController::class, 'colorStore'])->name('color.store');
 Route::get('/size', [ColorSizeController::class, 'sizeIndex'])->name('size.index');
 Route::post('/size', [ColorSizeController::class, 'sizeStore'])->name('size.store');
+
+#           Orders Controller
+Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
+Route::get('single/{billing}/order/details', [OrderController::class, 'singleOrder'])->name('order.details');
 
 #           Coupon Route
 Route::resource('coupon', CouponController::class);

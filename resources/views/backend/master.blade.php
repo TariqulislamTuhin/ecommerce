@@ -470,6 +470,26 @@
                         </li>
                         @else
                         @endcan
+                        <li class="nav-item @yield('order_tree')">
+                            <a href="#" class="nav-link @yield('order_active')">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Orders
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('order.index') }}" class="nav-link @yield('order_view_active')">
+                                        <i class="far fa-list-alt nav-icon"></i>
+                                        <p>View Orders </p>
+                                    </a>
+                                </li>
+                            </ul>
+
+
+                        </li>
+
 
 
                         {{-- logout --}}
@@ -494,7 +514,7 @@
         <!-- /.content-wrapper -->
         <footer class="main-footer">
             <strong>Copyright &copy; 2014-{{ now()->format('Y') }} <i class="fab fa-github">/</i> <a target="_blank"
-                    href="https://github.com/tariqulislamtuhin">tariqulislamtuhin</a>.</strong>
+                    href="https://github.com/tariqulislamtuhin/ecommerce">tariqulislamtuhin</a>.</strong>
             All rights reserved. ES WEB DEV 2004
             <div class="float-right d-none d-sm-inline-block">
                 <b class="text-uppercase">DEVELOPMENT PHASE</b>
