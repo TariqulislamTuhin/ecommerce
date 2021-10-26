@@ -60,6 +60,10 @@
                                         <td scope="row">Order Date:</td>
                                         <td>{{$billing->created_at->format('d F, Y')}}</td>
                                     </tr>
+                                    <tr>
+                                        <td scope="row">Total Bill:</td>
+                                        <td>{{$billing->amount->grand_total}} taka</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -72,7 +76,6 @@
                                     <th>Name</th>
                                     <th>Unit Price</th>
                                     <th>Qty</th>
-                                    <th>Total(Taka)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -104,9 +107,6 @@
                                     </td>
                                     <td>
                                         {{ $product->quantity }}
-                                    </td>
-                                    <td>
-                                        {{ $billing->amount->grand_total }} tk.
                                     </td>
                                 </tr>
 
