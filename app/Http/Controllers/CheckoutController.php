@@ -43,6 +43,11 @@ class CheckoutController extends Controller
     {
         //
         // return $request->all();
+        if (getGeoName($request->city) == "Dhaka") {
+            session()->put('shipping', 50);
+        }
+        session()->put('shipping', 120);
+
         $billing_detail = BillingDetail::create($request->except('_token', 'user_id') + [
             "user_id" => auth()->id(),
         ]);
