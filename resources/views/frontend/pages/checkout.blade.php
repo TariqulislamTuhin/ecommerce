@@ -180,38 +180,31 @@
                             <div class="payment-method">
                                 <div class="payment-accordion element-mrg">
                                     <div id="faq" class="panel-group">
+                                        <hr>
                                         <div class="panel panel-default single-my-account m-0">
-                                            <div class="panel-heading my-account-title">
-                                                <h4 class="panel-title"><a data-bs-toggle="collapse"
-                                                        href="#my-account-2" aria-expanded="false" class="collapsed">
-                                                        <b> SSLCommerz Payment</b></a>
+                                            <h2 class="text-success">** Payment Method **</h2><br>
+                                            <div class="input-radio">
+                                                <h4>
+                                                    <span class="custom-radio">
+                                                        <input id="sslcommerz" type="radio" value="sslcommerz"
+                                                            name="payment_method" required>
+                                                        <label for="sslcommerz"> SSLCommerz Payment
+                                                            <img src="https://www.sslcommerz.com/wp-content/uploads/2020/03/favicon.png"
+                                                                alt="" class="ml-3" width="22">
+                                                        </label>
+                                                    </span>
                                                 </h4>
-                                            </div>
-                                            <div id="my-account-2" class="panel-collapse collapse"
-                                                data-bs-parent="#faq">
-                                            </div>
-                                            <div class="panel-body custom-radio">
-                                                <input id="sslcommerz" type="radio" value="sslcommerz"
-                                                    name="payment_method" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="panel panel-default single-my-account m-0">
-
-                                            <div class="panel-heading my-account-title">
-                                                <h4 class="panel-title"><a data-bs-toggle="collapse"
-                                                        href="#my-account-3"> <b>Cash on Delivery</b></a></h4>
-                                            </div>
-
-                                            <div id="my-account-3" class="panel-collapse collapse"
-                                                data-bs-parent="#faq">
-
-
-                                            </div>
-                                            <div class="panel-body">
-                                                <input id="cash_on_delivery" type="radio" value="cash_on_delivary"
-                                                    name="payment_method" required>
-                                            </div>
+                                                <h4>
+                                                    <span class="custom-radio">
+                                                        <input id="cash_on_delivery" type="radio"
+                                                            value="cash_on_delivary" name="payment_method" required>
+                                                        <label for="cash_on_delivery"> Cash on Delivery
+                                                            <img src="//cdn-icons-png.flaticon.com/512/1554/1554401.png"
+                                                                alt="" class="ml-3" width="30">
+                                                        </label>
+                                                    </span>
+                                                </h4>
+                                            </div> <br>
                                         </div>
                                         @error('payment_method')
                                         <div class="alert alert-danger">{{ $message }}</div>

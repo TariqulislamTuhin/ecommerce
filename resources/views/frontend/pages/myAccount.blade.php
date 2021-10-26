@@ -68,7 +68,6 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-
                                                     @forelse ($bills as $bill)
                                                     <tr>
                                                         <td>{{ $loop->index + 1 }}</td>
