@@ -49,54 +49,56 @@ class InstallApplication extends Command
         try {
 
             $this->call('migrate:fresh');
+            
+            if ($this->confirm('Do you want to create an admin?')) {
+                app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-            app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+                $this->createAllPermission();
 
-            $this->createAllPermission();
+                $this->info('Provide admin credentials info to create an admin user for you.');
+                $name = $this->ask('Enter admin name');
+                $email = $this->ask('Enter admin email');
+                $password = $this->secret('Enter your admin password');
+                $confirmPassword = $this->secret('Enter your password again');
 
-            $this->info('Provide admin credentials info to create an admin user for you.');
-            $name = $this->ask('Enter admin name');
-            $email = $this->ask('Enter admin email');
-            $password = $this->secret('Enter your admin password');
-            $confirmPassword = $this->secret('Enter your password again');
-
-            $this->info('Please wait, Creating an admin profile for you...');
-            $validator = Validator::make(
-                [
+                $this->info('Please wait, Creating an admin profile for you...');
+                $validator = Validator::make(
+                    [
+                        'name' =>  $name,
+                        'email' =>  $email,
+                        'password' =>  $password,
+                        'confirmPassword' =>  $confirmPassword,
+                    ],
+                    [
+                        'name'     => 'required|string',
+                        'email'    => 'required|email|unique:users,email',
+                        'password' => 'required',
+                        'confirmPassword' => 'required|same:password',
+                    ]
+                );
+                if ($validator->fails()) {
+                    $this->info('User not created. See error messages below:');
+                    foreach ($validator->errors()->all() as $error) {
+                        $this->error($error);
+                    }
+                    return;
+                }
+                $user = User::create([
                     'name' =>  $name,
                     'email' =>  $email,
-                    'password' =>  $password,
-                    'confirmPassword' =>  $confirmPassword,
-                ],
-                [
-                    'name'     => 'required|string',
-                    'email'    => 'required|email|unique:users,email',
-                    'password' => 'required',
-                    'confirmPassword' => 'required|same:password',
-                ]
-            );
-            if ($validator->fails()) {
-                $this->info('User not created. See error messages below:');
-                foreach ($validator->errors()->all() as $error) {
-                    $this->error($error);
-                }
-                return;
+                    'password' =>  Hash::make($password),
+                    'registration_method' => 'local',
+                ]);
+                $user->email_verified_at = now()->timestamp;
+                $user->save();
+                $profile = Profile::create(['user_id' => $user->id]);
+                $user->profile()->save($profile);
+                $permissions = Permission::all();
+                $user->givePermissionTo($permissions);
+                Role::findByName(EnumRole::SUPER_ADMIN->value)->givePermissionTo($permissions);
+                $user->assignRole(EnumRole::SUPER_ADMIN->value);
+                $this->info('User Creation Successful!');
             }
-            $user = User::create([
-                'name' =>  $name,
-                'email' =>  $email,
-                'password' =>  Hash::make($password),
-                'registration_method' => 'local',
-            ]);
-            $user->email_verified_at = now()->timestamp;
-            $user->save();
-            $profile = Profile::create(['user_id' => $user->id]);
-            $user->profile()->save($profile);
-            $permissions = Permission::all();
-            $user->givePermissionTo($permissions);
-            Role::findByName(EnumRole::SUPER_ADMIN->value)->givePermissionTo($permissions);
-            $user->assignRole(EnumRole::SUPER_ADMIN->value);
-            $this->info('User Creation Successful!');
             $this->call('optimize:clear');
         } catch (\Exception $e) {
             $this->error($e->getMessage());
