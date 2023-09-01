@@ -16,7 +16,7 @@ class Administrator
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->hasrole('Customer')) {
+        if (auth()->user()->hasRole('Customer')) {
             return redirect()->route('front.index');
         }
         return $next($request);

@@ -178,10 +178,13 @@
                         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                     </div>
                 </li>
+                @php
+                    $image = !empty (auth()->user()->profile) ? asset('profile/'.auth()->user()->profile->id.'/'.auth()->user()->profile->image) : "#";
+                @endphp
                 <li class="nav-item dropdown">
                     <a class="nav-link " data-toggle="dropdown" href="#">
                         <b class="mr-2 h5 dropdown-toggle">{{ auth()->user()->name }}</b> <img
-                            src="{{ asset('profile/'.auth()->user()->profile->id.'/'.auth()->user()->profile->image) }}"
+                            src="{{ $image }}"
                             class="img-circle elevation-2" alt="{{ auth()->user()->name }}" width="20">
 
                     </a>

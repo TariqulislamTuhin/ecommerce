@@ -25,17 +25,20 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col">
+                @php
+                    $image = !empty($profile) ?(asset('profile/'. $profile->id . '/'.$profile->image)) : ''
+                @endphp
 
                 <!-- Profile Image -->
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
                             <img class="profile-user-img img-fluid img-circle"
-                                src="{{ (asset('profile/'. $profile->id . '/'.$profile->image)) ?? '' }}"
+                                src="{{ $image }}"
                                 alt="User profile picture">
                         </div>
 
-                        <h3 class="profile-username text-center">{{ $profile->user->name }}</h3>
+                        <h3 class="profile-username text-center">{{ $profile->user->name ?? '' }}</h3>
 
                         <p class="text-muted text-center">{{ $profile->user->roles->first()->name ?? '' }}</p>
                         <p class="text-muted text-center">Joining Date:
@@ -51,8 +54,8 @@
                 <div class="card card-primary">
                     <div class="card-header">
                         <span class="card-title h3">About
-                            {{ ($profile->user->id == auth()->id()) ? 'Me' : $profile->user->name }} </span>
-                        @if ($profile->user->id == auth()->id())
+                            {{-- {{ ($profile->user->id == auth()->id()) ? 'Me' : $profile->user->name }} </span> --}}
+                        @if ($profile->user?->id == auth()->id())
                         <a href="{{ route('profile.create') }}" class="float-right"><i class="fas fa-edit"></i></a>
                         @endif
                     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\Role as EnumRole;
 use App\Mail\AddNewAdminMailNotification;
 use App\Models\User;
 use GrahamCampbell\ResultType\Success;
@@ -28,37 +29,6 @@ class RoleController extends Controller
      */
     public function index()
     {
-        // Permission::create(['name' => 'category view']);
-        // Permission::create(['name' => 'category add']);
-        // Permission::create(['name' => 'category edit']);
-        // Permission::create(['name' => 'category delete']);
-        // Permission::create(['name' => 'subcategory view']);
-        // Permission::create(['name' => 'subcategory add']);
-        // Permission::create(['name' => 'subcategory edit']);
-        // Permission::create(['name' => 'subcategory delete']);
-        // Permission::create(['name' => 'product view']);
-        // Permission::create(['name' => 'product add']);
-        // Permission::create(['name' => 'product edit']);
-        // Permission::create(['name' => 'product delete']);
-        // Permission::create(['name' => 'size view']);
-        // Permission::create(['name' => 'size add']);
-        // Permission::create(['name' => 'size edit']);
-        // Permission::create(['name' => 'size delete']);
-        // Permission::create(['name' => 'color view']);
-        // Permission::create(['name' => 'color add']);
-        // Permission::create(['name' => 'color edit']);
-        // Permission::create(['name' => 'color delete']);
-        // Permission::create(['name' => 'coupon view']);
-        // Permission::create(['name' => 'coupon add']);
-        // Permission::create(['name' => 'coupon edit']);
-        // Permission::create(['name' => 'coupon delete']);
-        // Permission::create(['name' => 'assign user']);
-        // Permission::create(['name' => 'customer dashboard access']);
-        // $super_admin = Role::where('name', 'Super Admin')->first();
-        // $super_admin->givepermissionto(Permission::all());
-        // $user = User::find(Auth::id());
-        // $user->assignrole('Super Admin');
-
         $roles = Role::all();
         return view('backend.role.index', compact('roles'));
     }
@@ -143,7 +113,7 @@ class RoleController extends Controller
      */
     public function revoke(Role $role, User $user)
     {
-        if ($role->name != 'Super Admin') {
+        if ($role->name != EnumRole::SUPER_ADMIN->value) {
             $user->removeRole($role);
             return back()->with('success', $role->name . ' Role remove from ' . $user->name);
         }
@@ -156,7 +126,7 @@ class RoleController extends Controller
         return view('backend.role.user_role', [
             "roles" => Role::all(),
             "users" => User::where('registration_method', 'local')->get(),
-            "userwithRole" => User::role(['Super Admin', 'Admin'])->get(),
+            "userwithRole" => User::role([EnumRole::SUPER_ADMIN->value, EnumRole::ADMIN->value])->get(),
         ]);
     }
     public function assignUserStore(Request $request)
@@ -167,7 +137,7 @@ class RoleController extends Controller
         ]);
 
         $user = User::findorfail($request->user);
-        $user->assignrole(Role::findById($request->role));
+        $user->assignRole(Role::findById($request->role));
         return back()->with('success', 'Role Added Successfully');
     }
 
@@ -190,7 +160,7 @@ class RoleController extends Controller
             'email' => $request->email,
             'password' => Hash::make($password),
         ]);
-        $user->assignrole($request->role);
+        $user->assignRole($request->role);
         event(new Registered($user));
         Mail::to($request->email)->send(new AddNewAdminMailNotification($password));
         return back();

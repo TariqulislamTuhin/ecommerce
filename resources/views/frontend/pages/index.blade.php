@@ -14,7 +14,7 @@
                             <div class="hero-slide-content hero-slide-content-2 slider-animated-1">
                                 <span class="category">Sale {{ $coupon->amount ?? '' }}% Off</span>
                                 <h2 class="title-1">Exclusive
-                                    {{ preg_replace('/[\d-]+/', '', $coupon->name) ?? 'Shopping' }}<br>
+                                    {{ !empty($coupon) ? preg_replace('/[\d-]+/', '', $coupon->name) : 'Shopping' }}<br>
                                     Offer {{ now()->format('Y') }}
                                 </h2>
                                 <a href="shop-left-sidebar.html" class="btn btn-lg btn-primary btn-hover-dark"> Shop
@@ -40,7 +40,7 @@
                             <div class="hero-slide-content hero-slide-content-2 slider-animated-1">
                                 <span class="category">Sale {{ $coupon->amount ?? '' }}% Off</span>
                                 <h2 class="title-1">Exclusive
-                                    {{ preg_replace('/[\d-]+/', '', $coupon->name) ?? "Shopping" }}<br>
+                                    {{ !empty($coupon) ? preg_replace('/[\d-]+/', '', $coupon->name) : 'Shopping' }}<br>
                                     Offer {{ now()->format('Y') }}
                                 </h2>
                                 <a href="shop-left-sidebar.html" class="btn btn-lg btn-primary btn-hover-dark"> Shop

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\Role;
 use App\Models\Profile;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -37,7 +38,7 @@ class CustomerAuthController extends Controller
         if (!empty($user)) {
             if (Hash::check($request->password, $user->password)) {
                 Auth::login($user);
-                if ($user->role('Super Admin') || $user->role('Admin')) {
+                if ($user->role(Role::SUPER_ADMIN->value) || $user->role('Admin')) {
                     return redirect()->route('dashboard');
                 }
                 return back();
@@ -66,7 +67,7 @@ class CustomerAuthController extends Controller
         ]);
         $save_location = public_path('profile/') . $profile->id . '/';
         File::makeDirectory($save_location, 0777, true, true);
-        $user->assignrole('Customer');
+        $user->assignRole(Role::SUPER_ADMIN->value);
 
         Auth::login($user);
         return redirect('/');
@@ -90,7 +91,7 @@ class CustomerAuthController extends Controller
             return redirect()->route(('customer.auth.index'))->with('duplicate_error', 'Email already Exists!');
         } elseif ($viaUser->count() == 1) {
             $user = $viaUser->first();
-            if ($user->role('Super Admin') || $user->role('Admin')) {
+            if ($user->role(Role::SUPER_ADMIN->value) || $user->role('Admin')) {
                 Auth::login($user);
                 return redirect()->route('dashboard');
             }
@@ -107,8 +108,8 @@ class CustomerAuthController extends Controller
             event(new Registered($newuser));
             $newuser->registration_method = "via";
             $newuser->save();
-            $newuser->assignrole('Customer');
-            // $newuser->assignrole('Super Admin');
+            $newuser->assignRole(Role::SUPER_ADMIN->value);
+            // $newuser->assignole(Role::SUPER_ADMIN->value);
 
             $profile = Profile::create([
                 "user_id" => $newuser->id,

@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('registration_method')->comment('Local = local, With = via')->default('local');
+            $table->enum('registration_method',['local','via'])->default('local');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

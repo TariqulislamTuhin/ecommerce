@@ -10,11 +10,11 @@
     <meta name="robots" content="index, follow" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @php
-    $url = explode('8000',url()->current());
-    $url = str_replace('/',' ',end($url));
-    $url = ucwords(preg_replace('/[\d-]+/', ' ', $url));
+        $url = explode('8000', url()->current());
+        $url = str_replace('/', ' ', end($url));
+        $url = ucwords(preg_replace('/[\d-]+/', ' ', $url));
     @endphp
-    <title>Jesco - {{ ($url == '') ? 'Home' : $url }}</title>
+    <title>Jesco - {{ $url == '' ? 'Home' : $url }}</title>
     <meta name="description" content="Jesco - Fashoin eCommerce HTML Template" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
@@ -48,10 +48,13 @@
 <body>
 
     <!-- Top Bar -->
-    @if(coupon()->validity >= now()->format('Y-m-d') && coupon()->limit > 0)
-    <div class="header-to-bar"> HELLO {{ auth()->user()->name ?? "EVERYONE" }} ! {{ coupon()->amount }}% Off All
-        Products
-    </div>
+    @if (!empty(coupon()->validity))
+
+        @if (coupon()->validity >= now()->format('Y-m-d') && coupon()->limit > 0)
+            <div class="header-to-bar"> HELLO {{ auth()->user()->name ?? 'EVERYONE' }} ! {{ coupon()->amount }}% Off All
+                Products
+            </div>
+        @endif
     @endif
 
     <!-- Top Bar -->
@@ -115,17 +118,20 @@
                                                 <li>
                                                     <a class="p-0" href="shop-left-sidebar.html"><img
                                                             class="img-responsive w-100"
-                                                            src="{{ asset('front/images/banner/7.jpg') }}" alt=""></a>
+                                                            src="{{ asset('front/images/banner/7.jpg') }}"
+                                                            alt=""></a>
                                                 </li>
                                                 <li>
                                                     <a class="p-0" href="shop-left-sidebar.html"><img
                                                             class="img-responsive w-100"
-                                                            src="{{ asset('front/images/banner/8.jpg') }}" alt=""></a>
+                                                            src="{{ asset('front/images/banner/8.jpg') }}"
+                                                            alt=""></a>
                                                 </li>
                                                 <li>
                                                     <a class="p-0" href="shop-left-sidebar.html"><img
                                                             class="img-responsive w-100"
-                                                            src="{{ asset('front/images/banner/9.jpg') }}" alt=""></a>
+                                                            src="{{ asset('front/images/banner/9.jpg') }}"
+                                                            alt=""></a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -146,33 +152,33 @@
                     <div class="col col-lg-auto align-self-center pl-0">
                         <div class="header-actions main-menu">
                             @auth
-                            {{-- <div class="main-menu"> --}}
-                            <ul>
-                                <li class="dropdown ">
-                                    <a href="#">{{ auth()->user()->name }} <i class="pe-7s-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="{{ route('customer.dashboard') }}">My Account</a></li>
-                                        <li><a href="#" class="dropdown-item dropdown-footer"
-                                                onclick="event.preventDefault();document.getElementById('form-logout').submit()">
-                                                <span class="btn btn-outline-danger">
-                                                    <i class=" fas fa-sign-out-alt"></i>
-                                                    Logout
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                {{-- <div class="main-menu"> --}}
+                                <ul>
+                                    <li class="dropdown ">
+                                        <a href="#">{{ auth()->user()->name }} <i class="pe-7s-angle-down"></i></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="{{ route('customer.dashboard') }}">My Account</a></li>
+                                            <li><a href="#" class="dropdown-item dropdown-footer"
+                                                    onclick="event.preventDefault();document.getElementById('form-logout').submit()">
+                                                    <span class="btn btn-outline-danger">
+                                                        <i class=" fas fa-sign-out-alt"></i>
+                                                        Logout
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
 
-                            </ul>
-                            {{-- </div> --}}
-                            <form id="form-logout" action="{{route('logout')}}" method="POST"> @csrf </form>
-
+                                </ul>
+                                {{-- </div> --}}
+                                <form id="form-logout" action="{{ route('logout') }}" method="POST"> @csrf </form>
                             @else
-                            <a href="#" class="header-action-btn login-btn" data-bs-toggle="modal"
-                                data-bs-target="#loginActive">Sign In</a>
+                                <a href="#" class="header-action-btn login-btn" data-bs-toggle="modal"
+                                    data-bs-target="#loginActive">Sign In</a>
                             @endauth
                             <!-- Single Wedge Start -->
-                            <a href="#" class="header-action-btn" data-bs-toggle="modal" data-bs-target="#searchActive">
+                            <a href="#" class="header-action-btn" data-bs-toggle="modal"
+                                data-bs-target="#searchActive">
                                 <i class="pe-7s-search"></i>
                             </a>
                             <!-- Single Wedge End -->
@@ -258,22 +264,20 @@
             <div class="body customScroll">
                 <ul class="minicart-product-list">
                     @forelse (getcarts() as $cart)
-
-                    <li>
-                        <a href="{{ route('front.product.details',[$cart->product->slug,$cart->product]) }}"
-                            class="image">
-                            <img src="{{ asset('thumbnail/'.$cart->product->created_at->format('Y/M/').$cart->product->id.'/'.$cart->product->thumbnail) }}"
-                                alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="#" class="title">{{ $cart->product->name }}</a>
-                            <span class="quantity-price">{{ $cart->quantity }} x <span
-                                    class="amount">{{ (price($cart->product_id,$cart->color_id,$cart->size_id)->regular_price) ??
-                                    price($cart->product_id,$cart->color_id,$cart->size_id)->offer_price }}</span></span>
-                            <a href="{{ route('cart.delete',$cart) }}" class="remove">×</a>
-                        </div>
-                    </li>
+                        <li>
+                            <a href="{{ route('front.product.details', [$cart->product->slug, $cart->product]) }}"
+                                class="image">
+                                <img src="{{ asset('thumbnail/' . $cart->product->created_at->format('Y/M/') . $cart->product->id . '/' . $cart->product->thumbnail) }}"
+                                    alt="Cart product Image"></a>
+                            <div class="content">
+                                <a href="#" class="title">{{ $cart->product->name }}</a>
+                                <span class="quantity-price">{{ $cart->quantity }} x <span
+                                        class="amount">{{ price($cart->product_id, $cart->color_id, $cart->size_id)->regular_price ??
+                                            price($cart->product_id, $cart->color_id, $cart->size_id)->offer_price }}</span></span>
+                                <a href="{{ route('cart.delete', $cart) }}" class="remove">×</a>
+                            </div>
+                        </li>
                     @empty
-
                     @endforelse
                 </ul>
             </div>
@@ -428,15 +432,18 @@
                                                 aria-hidden="true"></i></a>
                                     </li>
                                     <li>
-                                        <a title="Tumblr" href="#"><i class="fa fa-tumblr" aria-hidden="true"></i>
+                                        <a title="Tumblr" href="#"><i class="fa fa-tumblr"
+                                                aria-hidden="true"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a title="Facebook" href="#"><i class="fa fa-facebook" aria-hidden="true"></i>
+                                        <a title="Facebook" href="#"><i class="fa fa-facebook"
+                                                aria-hidden="true"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a title="Instagram" href="#"><i class="fa fa-instagram" aria-hidden="true"></i>
+                                        <a title="Instagram" href="#"><i class="fa fa-instagram"
+                                                aria-hidden="true"></i>
                                             </i>
                                         </a>
                                     </li>
@@ -453,9 +460,11 @@
                                         <ul class="align-items-center">
                                             <li class="li"><a class="single-link" href="#">Support
                                                 </a></li>
-                                            <li class="li"><a class="single-link" href="#">Helpline</a></li>
+                                            <li class="li"><a class="single-link" href="#">Helpline</a>
+                                            </li>
                                             <li class="li"><a class="single-link" href="#">Courses</a></li>
-                                            <li class="li"><a class="single-link" href="about.html">About</a></li>
+                                            <li class="li"><a class="single-link" href="about.html">About</a>
+                                            </li>
                                             <li class="li"><a class="single-link" href="#">Event</a></li>
                                         </ul>
                                     </div>
@@ -472,9 +481,12 @@
                                         <ul class="align-items-center">
                                             <li class="li"><a class="single-link" href="about.html"> About </a>
                                             </li>
-                                            <li class="li"><a class="single-link" href="blog-grid.html">Blog</a></li>
-                                            <li class="li"><a class="single-link" href="#">Speakers</a></li>
-                                            <li class="li"><a class="single-link" href="contact.html">Contact</a></li>
+                                            <li class="li"><a class="single-link" href="blog-grid.html">Blog</a>
+                                            </li>
+                                            <li class="li"><a class="single-link" href="#">Speakers</a>
+                                            </li>
+                                            <li class="li"><a class="single-link" href="contact.html">Contact</a>
+                                            </li>
                                             <li class="li"><a class="single-link" href="#">Tricket</a></li>
                                         </ul>
                                     </div>
@@ -492,11 +504,14 @@
                                             <li class="li"><a class="single-link"
                                                     href="{{ route('front.index') }}">Jesco</a>
                                             </li>
-                                            <li class="li"><a class="single-link" href="shop-left-sidebar.html">Shop</a>
+                                            <li class="li"><a class="single-link"
+                                                    href="shop-left-sidebar.html">Shop</a>
                                             </li>
-                                            <li class="li"><a class="single-link" href="contact.html">Contact us</a>
+                                            <li class="li"><a class="single-link" href="contact.html">Contact
+                                                    us</a>
                                             </li>
-                                            <li class="li"><a class="single-link" href="login.html">Log in</a></li>
+                                            <li class="li"><a class="single-link" href="login.html">Log in</a>
+                                            </li>
                                             <li class="li"><a class="single-link" href="#">Help</a></li>
                                         </ul>
                                     </div>
@@ -543,7 +558,8 @@
 
     <!-- Search Modal Start -->
     <div class="modal popup-search-style" id="searchActive">
-        <button type="button" class="close-btn" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close-btn" data-bs-dismiss="modal"><span
+                aria-hidden="true">&times;</span></button>
         <div class="modal-overlay">
             <div class="modal-dialog p-0" role="document">
                 <div class="modal-content">
@@ -564,7 +580,8 @@
 
     <!-- Login Modal Start -->
     <div class="modal popup-login-style" id="loginActive">
-        <button type="button" class="close-btn" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close-btn" data-bs-dismiss="modal"><span
+                aria-hidden="true">&times;</span></button>
         <div class="modal-overlay">
             <div class="modal-dialog p-0" role="document">
                 <div class="modal-content">
@@ -595,7 +612,8 @@
                                     </a>
                                 </div>
                                 <div class="member-register">
-                                    <p> Not a member? <a href="{{ route('customer.auth.index') }}"> Register now</a></p>
+                                    <p> Not a member? <a href="{{ route('customer.auth.index') }}"> Register now</a>
+                                    </p>
                                 </div>
                             </form>
                         </div>

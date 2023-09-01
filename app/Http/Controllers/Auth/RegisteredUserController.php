@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enum\Role as EnumRole;
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use App\Models\User;
@@ -52,40 +53,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        // Permission::create(['name' => 'category view']);
-        // Permission::create(['name' => 'category add']);
-        // Permission::create(['name' => 'category edit']);
-        // Permission::create(['name' => 'category delete']);
-        // Permission::create(['name' => 'subcategory view']);
-        // Permission::create(['name' => 'subcategory add']);
-        // Permission::create(['name' => 'subcategory edit']);
-        // Permission::create(['name' => 'subcategory delete']);
-        // Permission::create(['name' => 'product view']);
-        // Permission::create(['name' => 'product add']);
-        // Permission::create(['name' => 'product edit']);
-        // Permission::create(['name' => 'product delete']);
-        // Permission::create(['name' => 'size view']);
-        // Permission::create(['name' => 'size add']);
-        // Permission::create(['name' => 'size edit']);
-        // Permission::create(['name' => 'size delete']);
-        // Permission::create(['name' => 'color view']);
-        // Permission::create(['name' => 'color add']);
-        // Permission::create(['name' => 'color edit']);
-        // Permission::create(['name' => 'color delete']);
-        // Permission::create(['name' => 'coupon view']);
-        // Permission::create(['name' => 'coupon add']);
-        // Permission::create(['name' => 'coupon edit']);
-        // Permission::create(['name' => 'coupon delete']);
-        // Permission::create(['name' => 'assign user']);
-        // Permission::create(['name' => 'customer dashboard access']);
-
-        // $rolesuper = Role::create(['name' => 'Super Admin']);
-        // $rolesuper->syncPermissions(Permission::all());
-        // $user->assignrole('Super Admin');
-
-
-        #### Inactive this when creting Super Admin ###
-        // $user->assignrole('Customer');
+        $user->assignRole(EnumRole::STUDENT->value);
 
         $profile = Profile::create([
             "user_id" => $user->id,
